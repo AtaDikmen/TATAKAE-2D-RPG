@@ -20,6 +20,7 @@ MonoBehaviour:
   itemCooldown: 0
   itemEffects:
   - {fileID: 11400000, guid: fa5732b37d69690468a084d8ea16dc42, type: 2}
+  itemEffectDescription: 'Unique: Increase evasion on each taken hit.'
   strength: 0
   agility: 5
   intelligence: 0
@@ -27,11 +28,15 @@ MonoBehaviour:
   damage: 0
   critChance: 0
   critPower: 0
-  maxHealth: 50
+  health: 0
   armor: 0
   evasion: 5
   magicResistance: 0
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0
-  craftingMaterials: []
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+    stackSize: 4
+  - data: {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
+    stackSize: 3

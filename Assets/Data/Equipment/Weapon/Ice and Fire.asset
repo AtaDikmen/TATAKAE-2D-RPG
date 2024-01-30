@@ -21,6 +21,7 @@ MonoBehaviour:
   itemEffects:
   - {fileID: 11400000, guid: 9511c8905a8949341a799b4bf674540b, type: 2}
   - {fileID: 11400000, guid: 208c989f532996147b7897c954ddf1f5, type: 2}
+  itemEffectDescription: 'Unique: Each 3rd attack you launch ice and fire projectile.'
   strength: 0
   agility: 0
   intelligence: 0
@@ -28,11 +29,15 @@ MonoBehaviour:
   damage: 10
   critChance: 0
   critPower: 0
-  maxHealth: 15
+  health: 0
   armor: 0
   evasion: 0
   magicResistance: 0
   fireDamage: 5
   iceDamage: 7
   lightingDamage: 0
-  craftingMaterials: []
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+    stackSize: 1
+  - data: {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
+    stackSize: 5

@@ -1,6 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
+public enum StatType
+{
+    strength,
+    agility,
+    intelligence,
+    vitality,
+    damage,
+    critChance,
+    critPower,
+    health,
+    armor,
+    evasion,
+    magicRes,
+    fireDamage,
+    iceDamage,
+    lightingDamage
+}
+
 public class CharacterStats : MonoBehaviour
 {
     private EntityFX fx;
@@ -9,7 +27,7 @@ public class CharacterStats : MonoBehaviour
     public Stat strength; // 1 point increase damage by 1 and crit.power by 1%
     public Stat agility; // 1 point increase evasion by 1% and crit.chance by 1%
     public Stat intelligence; // 1 point increase magic damage by 1 and magic resistance b 3
-    public Stat vitality; // 1 point increase health by 3 or 5 points
+    public Stat vitality; // 1 point increase health by 5 points
 
     [Header("Offensive Stats")]
     public Stat damage;
@@ -46,6 +64,7 @@ public class CharacterStats : MonoBehaviour
 
     public System.Action onHealthChanged;
     public bool isDead { get; private set; }
+    private bool isVulnerable;
 
     protected virtual void Start()
     {
@@ -72,6 +91,17 @@ public class CharacterStats : MonoBehaviour
 
         if(isIgnited)
             ApplyIgniteDamage();
+    }
+
+    public void MakeVulnerableFor(float _duration) => StartCoroutine(VulnerableCoroutine(_duration));
+
+    private IEnumerator VulnerableCoroutine(float _duration)
+    {
+        isVulnerable = true;
+
+        yield return new WaitForSeconds(_duration);
+
+        isVulnerable = false;
     }
 
     public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
@@ -292,6 +322,9 @@ public class CharacterStats : MonoBehaviour
 
     protected virtual void DecreaseHealthBy(int _damage)
     {
+        if (isVulnerable)
+            _damage = Mathf.RoundToInt(_damage * 1.1f);
+
         currentHealth -= _damage;
 
         if (onHealthChanged != null)
@@ -305,7 +338,7 @@ public class CharacterStats : MonoBehaviour
 
     #region Stat Calculations
 
-    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    protected int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
         if (_targetStats.isChilled)
             totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
@@ -324,7 +357,12 @@ public class CharacterStats : MonoBehaviour
         return totalMagicalDamage;
     }
 
-    private bool TargetCanAvoidAttack(CharacterStats _targetStats)
+    public virtual void OnEvasion()
+    {
+
+    }
+
+    protected bool TargetCanAvoidAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
 
@@ -333,13 +371,14 @@ public class CharacterStats : MonoBehaviour
 
         if (Random.Range(0, 100) < totalEvasion)
         {
+            _targetStats.OnEvasion();
             return true;
         }
 
         return false;
     }
 
-    private bool CanCrit()
+    protected bool CanCrit()
     {
         int totalCriticalChance = critChance.GetValue() + agility.GetValue();
 
@@ -351,7 +390,7 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
 
-    private int CalculateCriticalDamage(int _damage)
+    protected int CalculateCriticalDamage(int _damage)
     {
         float totalCritPower = (critPower.GetValue() + strength.GetValue()) * .01f;
         float critDamage = _damage * totalCritPower;
@@ -364,4 +403,24 @@ public class CharacterStats : MonoBehaviour
         return maxHealth.GetValue() + vitality.GetValue() * 5;
     }
     #endregion
+
+    public Stat GetStat(StatType _statType)
+    {
+        if (_statType == StatType.strength) return strength;
+        else if (_statType == StatType.agility) return agility;
+        else if (_statType == StatType.intelligence) return intelligence;
+        else if (_statType == StatType.vitality) return vitality;
+        else if (_statType == StatType.damage) return damage;
+        else if (_statType == StatType.critChance) return critChance;
+        else if (_statType == StatType.critPower) return critPower;
+        else if (_statType == StatType.health) return maxHealth;
+        else if (_statType == StatType.armor) return armor;
+        else if (_statType == StatType.evasion) return evasion;
+        else if (_statType == StatType.magicRes) return magicResistance;
+        else if (_statType == StatType.fireDamage) return fireDamage;
+        else if (_statType == StatType.iceDamage) return iceDamage;
+        else if (_statType == StatType.lightingDamage) return lightingDamage;
+
+        return null;
+    }
 }

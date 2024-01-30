@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7813378973554c5439aaec62385c48db, type: 3}
   m_Name: Evasion on Taking Hit
   m_EditorClassIdentifier: 
+  effectDescription: 'Increase evasion on each hit taken.
+
+'
   buffType: 9
   buffAmount: 15
   buffDuration: 1.5

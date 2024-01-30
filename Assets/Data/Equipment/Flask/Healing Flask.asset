@@ -17,9 +17,10 @@ MonoBehaviour:
   icon: {fileID: -410334530, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 3
-  itemCooldown: 5
+  itemCooldown: 15
   itemEffects:
   - {fileID: 11400000, guid: d449e514cc05a9c41b430bd145f6ad2b, type: 2}
+  itemEffectDescription: Heals for 30% of health. Cooldown 15 sec.
   strength: 0
   agility: 0
   intelligence: 0
@@ -27,7 +28,7 @@ MonoBehaviour:
   damage: 0
   critChance: 0
   critPower: 0
-  maxHealth: 0
+  health: 0
   armor: 0
   evasion: 0
   magicResistance: 0
