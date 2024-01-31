@@ -15217,19 +15217,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingItems:
   - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
-  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
-  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
   - {fileID: 11400000, guid: b376fdadedfec8e4a9169da24304f282, type: 2}
   - {fileID: 11400000, guid: 33659b67d8006f541ac37997b3992ace, type: 2}
   - {fileID: 11400000, guid: 49985c9309b9e224b93b11e296132cb0, type: 2}
   - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
-  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
   - {fileID: 11400000, guid: 4e7ee3b091632814b99093a877cdb7a3, type: 2}
   - {fileID: 11400000, guid: 7e44b7919e6a8844a87cf674a46e1a70, type: 2}
   - {fileID: 11400000, guid: 3b26850b43d03514ca82fb0d255c7a2b, type: 2}
   - {fileID: 11400000, guid: 4fa1dce355bf0fc40b2a2c9a851e7d74, type: 2}
   - {fileID: 11400000, guid: 196f75d02f5de1f4b809d1d473717b51, type: 2}
   - {fileID: 11400000, guid: a2bc06480e27dba4f80c3404605bcea4, type: 2}
+  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
+  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
   equipment: []
   inventory: []
   stash: []
@@ -15237,6 +15238,8 @@ MonoBehaviour:
   stashSlotParent: {fileID: 1371034116}
   equipmentSlotParent: {fileID: 329859077}
   statSlotParent: {fileID: 1630413697}
+  loadedItems: []
+  loadedEquipment: []
 --- !u!4 &973297472
 Transform:
   m_ObjectHideFlags: 0
@@ -17719,6 +17722,52 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!1 &1182123666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182123668}
+  - component: {fileID: 1182123667}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1182123667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182123666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6564c644c29ba194c95b98d07c2e0b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: data.ataDev
+  encryptData: 1
+--- !u!4 &1182123668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182123666}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 844.5377, y: 472.5765, z: -3.719798}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1186361388
 GameObject:
   m_ObjectHideFlags: 0
@@ -33809,11 +33858,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1948696860}
+  - {fileID: 1759749865}
+  - {fileID: 1182123668}
+  - {fileID: 157061601}
   - {fileID: 1536280086}
   - {fileID: 1139936341}
   - {fileID: 642249528}
-  - {fileID: 1759749865}
-  - {fileID: 157061601}
   - {fileID: 568614352}
   - {fileID: 973297472}
   - {fileID: 1663611359}

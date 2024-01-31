@@ -70,7 +70,7 @@ public class Sword_Skill : Skill
         pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierceSword);
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
         timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
-        vulnerableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnurable);
+        vulnerableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnerable);
     }
 
     private void SetupGravity()
@@ -118,13 +118,22 @@ public class Sword_Skill : Skill
 
     #region Unlock Region
 
+    protected override void CheckUnlock()
+    {
+        UnlockSword();
+        UnlockBounceSword();
+        UnlockSpinSword();
+        UnlockPierceSword();
+        UnlockTimeStop();
+        UnlockVulnerable();
+    }
     private void UnlockTimeStop()
     {
         if (timeStopUnlockButton.unlocked)
             timeStopUnlocked = true;
     }
     
-    private void UnlockVulnurable()
+    private void UnlockVulnerable()
     {
         if (vulnerableUnlockButton.unlocked)
             vulnerableUnlocked = true;
