@@ -21,8 +21,10 @@ public class PlayerStats : CharacterStats
     protected override void Die()
     {
         base.Die();
-
         player.Die();
+
+        GameManager.instance.lostCurrencyAmount = PlayerManager.instance.currency;
+        PlayerManager.instance.currency = 0;
 
         GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }
@@ -30,6 +32,16 @@ public class PlayerStats : CharacterStats
     protected override void DecreaseHealthBy(int _damage)
     {
         base.DecreaseHealthBy(_damage);
+
+        if (isDead)
+            return;
+
+        if (_damage > GetMaxHealthValute() * .3f)
+        {
+            player.SetupKnockbackPower(new Vector2(10,6));
+
+            AudioManager.instance.PlaySFX(34,null);
+        }
 
         ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);
 

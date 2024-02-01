@@ -16,6 +16,9 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        //AudioManager.instance.PlaySFX(2); // attack sound effect
+
         xInput = 0; // we need this to fix bug attack direction
 
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
