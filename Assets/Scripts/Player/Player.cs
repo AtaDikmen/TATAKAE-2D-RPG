@@ -25,6 +25,7 @@ public class Player : Entity
 
     public SkillManager skill { get; private set; }
     public GameObject sword { get; private set; }
+    public PlayerFX fx { get; private set; }
 
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
@@ -72,6 +73,8 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+
+        fx = GetComponent<PlayerFX>();
 
         skill = SkillManager.instance;
 

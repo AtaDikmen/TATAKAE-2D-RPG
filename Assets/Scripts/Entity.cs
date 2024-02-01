@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -7,7 +6,6 @@ public class Entity : MonoBehaviour
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
-    public EntityFX fx { get; private set; }
     public SpriteRenderer sr { get; private set; }
     public CharacterStats stats { get; private set; }
     public CapsuleCollider2D cd { get; private set; }
@@ -15,6 +13,7 @@ public class Entity : MonoBehaviour
 
     [Header("Knockback Info")]
     [SerializeField] protected Vector2 knockbackPower;
+    [SerializeField] protected Vector2 knockbackOffset;
     [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
 
@@ -42,7 +41,6 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
-        fx = GetComponent<EntityFX>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         stats = GetComponent<CharacterStats>();
@@ -79,7 +77,11 @@ public class Entity : MonoBehaviour
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
-        rb.velocity = new Vector2(knockbackPower.x * knockbackDir, knockbackPower.y);
+
+        float xOffset = Random.Range(knockbackOffset.x, knockbackOffset.y);
+
+        //if(knockbackPower.x > 0 || knockbackPower.y > 0) This line makes player immune to freeze effect when he takes hit
+            rb.velocity = new Vector2((knockbackPower.x + xOffset) * knockbackDir, knockbackPower.y);
 
         yield return new WaitForSeconds(knockbackDuration);
 
@@ -124,7 +126,7 @@ public class Entity : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance * facingDir, wallCheck.position.y));
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
@@ -150,6 +152,14 @@ public class Entity : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    public virtual void SetupDefaultFacingDir(int _direction)
+    {
+        facingDir = _direction;
+
+        if (facingDir == -1)
+            facingRight = false;
     }
     #endregion 
 
