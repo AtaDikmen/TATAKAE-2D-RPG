@@ -266,6 +266,7 @@ public class Inventory : MonoBehaviour, ISaveManager
                 if (stashValue.stackSize < _requiredMaterials[i].stackSize)
                 {
                     Debug.Log("Not Enough Materials");
+                    AudioManager.instance.PlaySFX(42, null);
                     return false;
                 }
                 else
@@ -276,6 +277,7 @@ public class Inventory : MonoBehaviour, ISaveManager
             else
             {
                 Debug.Log("Not enough materials");
+                AudioManager.instance.PlaySFX(42, null);
                 return false;
             }
         }
@@ -287,6 +289,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         AddItem(_itemToCraft);
         Debug.Log("Here is your item " + _itemToCraft.name);
+        AudioManager.instance.PlaySFX(26,null);
 
         return true;
     }
@@ -322,9 +325,10 @@ public class Inventory : MonoBehaviour, ISaveManager
             flaskCooldown = currentFlask.itemCooldown;
             currentFlask.Effect(null);
             lastTimeUsedFlask = Time.time;
+            AudioManager.instance.PlaySFX(25,null);
         }
         else
-            Debug.Log("Flask on cooldown");
+            PlayerManager.instance.player.fx.CreatePopUpText("Flask on cooldown");
     }
 
     public bool CanUseArmor()

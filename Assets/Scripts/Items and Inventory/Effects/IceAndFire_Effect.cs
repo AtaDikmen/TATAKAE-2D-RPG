@@ -20,7 +20,9 @@ public class IceAndFire_Effect : ItemEffect
 
             newIceAndFire.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity * player.facingDir,0);
 
-            Destroy(newIceAndFire, 10);
+            Destroy(newIceAndFire, 2f);
+
+            AudioManager.instance.PlaySFX(13, newIceAndFire.transform);
         }
     }
 }

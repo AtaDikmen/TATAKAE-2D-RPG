@@ -18,11 +18,13 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             instance = this;
     }
 
+
     public bool HaveEnoughMoney(int _price)
     {
         if(_price > currency)
         {
             Debug.Log("Not enough money");
+            AudioManager.instance.PlaySFX(42, null);
             return false;
         }
 

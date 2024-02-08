@@ -10265,8 +10265,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackPower: {x: 7, y: 12}
-  knockbackOffset: {x: 0.5, y: 2}
+  knockbackOffset: {x: 0.5, y: 3}
   knockbackDuration: 0.07
+  isImmune: 0
   attackCheck: {fileID: 6341530209701463211}
   attackCheckRadius: 1.2
   groundCheck: {fileID: 897124331064499376}
@@ -10276,16 +10277,19 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 1024
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 1
   stunDirection: {x: 10, y: 12}
   counterImage: {fileID: 1628045644212144976}
-  moveSpeed: 1.5
+  moveSpeed: 2
   idleTime: 2
   battleTime: 7
-  agroDistance: 2
+  agroDistance: 4
   attackDistance: 2
   attackCooldown: 0.4
   minAttackCooldown: 0.35
@@ -10304,7 +10308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    baseValue: 2
+    baseValue: 0
     modifiers: 
   agility:
     baseValue: 0
@@ -10316,16 +10320,16 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 2
+    baseValue: 50
     modifiers: 
   critChance:
-    baseValue: 0
+    baseValue: 5
     modifiers: 
   critPower:
-    baseValue: 0
+    baseValue: 30
     modifiers: 
   maxHealth:
-    baseValue: 200
+    baseValue: 500
     modifiers: 
   armor:
     baseValue: 0
@@ -10355,7 +10359,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   level: 1
-  percentageModifier: 0.4
+  percentageModifier: 0.2
 --- !u!114 &4346428182811737662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10368,13 +10372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc21677ffeea78c43afe77defd8e7e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 2
+  possibleItemDrop: 3
   possibleDrop:
-  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
   - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
-  - {fileID: 11400000, guid: b376fdadedfec8e4a9169da24304f282, type: 2}
-  - {fileID: 11400000, guid: 33659b67d8006f541ac37997b3992ace, type: 2}
-  - {fileID: 11400000, guid: 49985c9309b9e224b93b11e296132cb0, type: 2}
+  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
   dropPrefab: {fileID: 7341500517375598969, guid: c83b3ce7a32628f4f9cfa238bdb5c7b1, type: 3}
 --- !u!1 &5756231045606166567
 GameObject:
@@ -15353,7 +15354,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.94, y: 41}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 200, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4797942212900116052
 MonoBehaviour:

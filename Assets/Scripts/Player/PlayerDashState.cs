@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDashState : PlayerState
@@ -16,6 +14,12 @@ public class PlayerDashState : PlayerState
         stateTimer = player.dashDuration;
 
         player.stats.MakeInvincible(true);
+
+        int randomNumber = Random.Range(0, 2);
+        int sfxIndex = (randomNumber == 0) ? 15 : 17;
+
+        AudioManager.instance.PlaySFX(sfxIndex, null);
+
     }
 
     public override void Exit()
@@ -26,6 +30,7 @@ public class PlayerDashState : PlayerState
         player.SetVelocity(0, rb.velocity.y);
 
         player.stats.MakeInvincible(false);
+
     }
 
     public override void Update()

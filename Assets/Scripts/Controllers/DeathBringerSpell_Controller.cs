@@ -11,6 +11,12 @@ public class DeathBringerSpell_Controller : MonoBehaviour
 
     private CharacterStats myStats;
 
+
+    private void OnEnable()
+    {
+        AudioManager.instance.PlaySFX(36, transform);
+    }
+
     public void SetupSpell(CharacterStats _stats) => myStats = _stats;
 
     public void AnimationTrigger()

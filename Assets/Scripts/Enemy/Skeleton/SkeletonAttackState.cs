@@ -14,6 +14,8 @@ public class SkeletonAttackState : EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        AudioManager.instance.PlaySFX(44, enemy.transform);
     }
 
     public override void Exit()

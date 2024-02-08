@@ -16,7 +16,7 @@ public class EnemyStats : CharacterStats
 
     protected override void Start()
     {
-        soulsDropAmount.SetDefaultValue(100);
+        soulsDropAmount.SetDefaultValue(3000);
         ApplyLevelModifiers();
 
         base.Start();
@@ -72,6 +72,9 @@ public class EnemyStats : CharacterStats
         PlayerManager.instance.currency += soulsDropAmount.GetValue();
         myDropSystem.GenerateDrop();
 
-        Destroy(gameObject, 5f);
+        if(this.gameObject.GetComponent<Enemy_Shady>() == null)
+            enemy.fx.MakeTransparent(true);
+            
+        Destroy(gameObject, 2f);
     }
 }

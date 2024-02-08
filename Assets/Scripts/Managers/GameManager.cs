@@ -33,6 +33,13 @@ public class GameManager : MonoBehaviour, ISaveManager
         player = PlayerManager.instance.player.transform;
     }
 
+    public void MainMenu()
+    {
+        SaveManager.instance.SaveGame();
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void RestartScene()
     {
         SaveManager.instance.SaveGame();

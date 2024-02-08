@@ -186,7 +186,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.94, y: 41}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 200, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5715819445667048724
 MonoBehaviour:
@@ -372,7 +372,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 150
+    baseValue: 300
     modifiers: 
   critChance:
     baseValue: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 50
+    baseValue: 250
     modifiers: 
   armor:
     baseValue: 0
@@ -405,13 +405,13 @@ MonoBehaviour:
   isChilled: 0
   isShocked: 0
   ailmentsDuration: 4
-  shockStrikePrefab: {fileID: 0}
+  shockStrikePrefab: {fileID: 6115359567115172251, guid: 734750d6c8990c84d8a48ee1d8dc5c08, type: 3}
   currentHealth: 0
   soulsDropAmount:
     baseValue: 0
     modifiers: 
   level: 1
-  percentageModifier: 0.4
+  percentageModifier: 0.2
 --- !u!114 &4959712160812147976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,9 +453,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc21677ffeea78c43afe77defd8e7e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 0
-  possibleDrop: []
-  dropPrefab: {fileID: 0}
+  possibleItemDrop: 2
+  possibleDrop:
+  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
+  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+  dropPrefab: {fileID: 7341500517375598969, guid: c83b3ce7a32628f4f9cfa238bdb5c7b1, type: 3}
 --- !u!114 &8582674945946906221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,8 +473,9 @@ MonoBehaviour:
   knockbackPower: {x: 7, y: 12}
   knockbackOffset: {x: 0.5, y: 2}
   knockbackDuration: 0.07
+  isImmune: 0
   attackCheck: {fileID: 1047980364954028322}
-  attackCheckRadius: 2.5
+  attackCheckRadius: 3
   groundCheck: {fileID: 7266137037584344770}
   groundCheckDistance: 1
   wallCheck: {fileID: 8372373498548927780}
@@ -480,6 +483,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 1024
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
@@ -489,7 +495,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   idleTime: 2
   battleTime: 7
-  agroDistance: 5
+  agroDistance: 15
   attackDistance: 0.5
   attackCooldown: 0
   minAttackCooldown: 1
@@ -498,7 +504,7 @@ MonoBehaviour:
   battleStateMoveSpeed: 6
   explosivePrefab: {fileID: 618219896395988053, guid: 32e6be72281e5b843b50989df26eb2c7, type: 3}
   growSpeed: 15
-  maxSize: 7
+  maxSize: 10
 --- !u!1 &4883297691224240074
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +840,7 @@ Transform:
   m_GameObject: {fileID: 6969306600620160891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -940,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 8638841302496744089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0.33, y: 0.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -32,7 +32,7 @@ public class CharacterStats : MonoBehaviour
     [Header("Offensive Stats")]
     public Stat damage;
     public Stat critChance;
-    public Stat critPower;             // default value 150%
+    public Stat critPower;             // default value 50%
 
     [Header("Defensive Stats")]
     public Stat maxHealth;
@@ -69,7 +69,7 @@ public class CharacterStats : MonoBehaviour
 
     protected virtual void Start()
     {
-        critPower.SetDefaultValue(150);
+        critPower.SetDefaultValue(50);
         currentHealth = GetMaxHealthValute();
 
         fx = GetComponent<EntityFX>();
@@ -145,7 +145,34 @@ public class CharacterStats : MonoBehaviour
         _targetStats.TakeDamage(totalDamage);
 
 
-        DoMagicalDamage(_targetStats); // remove if you don't want to apply magic hit on primary attack
+        //DoMagicalDamage(_targetStats); // remove if you don't want to apply magic hit on primary attack
+    }
+
+    public void SwordThrowDamage(CharacterStats _targetStats)
+    {
+        bool criticalStrike = false;
+
+        if (_targetStats.isInvincible)
+            return;
+
+        if (TargetCanAvoidAttack(_targetStats))
+            return;
+
+        _targetStats.GetComponent<Entity>().SetupKnockbackDir(transform);
+
+        int totalDamage = Mathf.RoundToInt((damage.GetValue() + strength.GetValue()) * .50f); // 50% percent of total damage
+
+        if (CanCrit())
+        {
+            totalDamage = CalculateCriticalDamage(totalDamage);
+            criticalStrike = true;
+        }
+
+        fx.CreateHitFx(_targetStats.transform, criticalStrike);
+
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage);
+        _targetStats.TakeDamage(totalDamage);
+
     }
 
     #region Magical Damage and Ailements
@@ -257,7 +284,7 @@ public class CharacterStats : MonoBehaviour
 
     private void HitNearestTargetWithShockStrike()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 13);
 
         float closestDistance = Mathf.Infinity;
         Transform closestEnemy = null;
@@ -284,6 +311,7 @@ public class CharacterStats : MonoBehaviour
             GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
 
             newShockStrike.GetComponent<ShockStrike_Controller>().Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
+            AudioManager.instance.PlaySFX(43, transform);
         }
     }
 
@@ -376,6 +404,9 @@ public class CharacterStats : MonoBehaviour
 
     private int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
     {
+        if (_targetStats.magicResistance.GetValue() == 0)
+            return totalMagicalDamage;
+
         totalMagicalDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
         totalMagicalDamage = Mathf.Clamp(totalMagicalDamage, 0, int.MaxValue);
         return totalMagicalDamage;

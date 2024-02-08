@@ -1,5 +1,6 @@
 
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum SlimeType { big, medium, small }
@@ -42,6 +43,13 @@ public class Enemy_Slime : Enemy
         base.Start();
 
         stateMachine.Initialize(idleState);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        
     }
 
     public override bool CanBeStunned()

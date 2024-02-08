@@ -34,10 +34,10 @@ public class UI_InGame : MonoBehaviour
     {
         UpdateSoulsUI();
 
-        if (Input.GetKeyUp(KeyCode.LeftShift) && skills.dash.dashUnlocked)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
             SetCooldownOf(dashImage);
 
-        if (Input.GetKeyUp(KeyCode.Q) && skills.parry.parryUnlocked)
+        if (Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
             SetCooldownOf(parryImage);
 
         if (Input.GetKeyUp(KeyCode.F) && skills.crystal.crystalUnlocked)

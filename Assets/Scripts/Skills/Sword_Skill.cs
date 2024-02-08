@@ -12,7 +12,7 @@ public enum SwordType
 
 public class Sword_Skill : Skill
 {
-    public SwordType swordType = SwordType.Regular;
+    public SwordType swordType;
 
     [Header("Bounce Info")]
     [SerializeField] private UI_SkillTreeSlot bounceUnlockButton;
@@ -57,9 +57,13 @@ public class Sword_Skill : Skill
 
     private GameObject[] dots;
 
+    [Header("Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
     protected override void Start()
     {
         base.Start();
+
 
         GenerateDots();
         SetupGravity();
@@ -71,6 +75,8 @@ public class Sword_Skill : Skill
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
         timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
         vulnerableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnerable);
+
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
     }
 
     private void SetupGravity()
@@ -81,6 +87,11 @@ public class Sword_Skill : Skill
             swordGravity = pierceGravity;
         else if (swordType == SwordType.Spin)
             swordGravity = spinGravity;
+    }
+
+    public SwordType GetSwordType()
+    {
+        return swordType;
     }
 
     protected override void Update()
@@ -131,12 +142,16 @@ public class Sword_Skill : Skill
     {
         if (timeStopUnlockButton.unlocked)
             timeStopUnlocked = true;
+        else
+            timeStopUnlocked = false;
     }
     
     private void UnlockVulnerable()
     {
         if (vulnerableUnlockButton.unlocked)
             vulnerableUnlocked = true;
+        else
+            vulnerableUnlocked = false;
     }
 
     private void UnlockSword()
@@ -145,25 +160,55 @@ public class Sword_Skill : Skill
         {
             swordType = SwordType.Regular;
             swordUnlocked = true;
+            SetupGravity();
+        }
+        else
+        {
+            swordUnlocked = false;
+            swordGravity = 5;
         }
     }
 
     private void UnlockBounceSword()
     {
-        if(bounceUnlockButton.unlocked)
+        if (bounceUnlockButton.unlocked)
+        {
             swordType = SwordType.Bounce;
+            SetupGravity();
+        }
+        else
+        {
+            swordType = SwordType.Regular;
+            swordGravity = 5;
+        }
     }
 
     private void UnlockPierceSword()
     {
         if (pierceUnlockButton.unlocked)
+        {
             swordType = SwordType.Pierce;
+            SetupGravity();
+        }
+        else
+        {
+            swordType = SwordType.Regular;
+            swordGravity = 5;
+        }
     }
 
     private void UnlockSpinSword()
     {
         if (spinUnlockButton.unlocked)
+        {
             swordType = SwordType.Spin;
+            SetupGravity();
+        }
+        else
+        {
+            swordType = SwordType.Regular;
+            swordGravity = 5;
+        }
     }
 
 

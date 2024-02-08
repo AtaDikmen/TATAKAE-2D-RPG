@@ -17,6 +17,10 @@ public class Dash_Skill : Skill
     [SerializeField] private UI_SkillTreeSlot cloneOnArrivalUnlockButton;
     public bool cloneOnArrivalUnlocked { get; private set; }
 
+    [Header("Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
+
     public override void UseSkill()
     {
         base.UseSkill();
@@ -29,7 +33,12 @@ public class Dash_Skill : Skill
         dashUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
         cloneOnDashUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnDash);
         cloneOnArrivalUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockCloneOnArrival);
+
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
+
     }
+
+    #region Unlock Region
 
     protected override void CheckUnlock()
     {
@@ -40,22 +49,29 @@ public class Dash_Skill : Skill
 
     private void UnlockDash()
     {
-
         if (dashUnlockButton.unlocked)
             dashUnlocked = true;
+        else
+            dashUnlocked = false;
     }
 
     private void UnlockCloneOnDash()
     {
-        if(cloneOnDashUnlockButton.unlocked)
+        if (cloneOnDashUnlockButton.unlocked)
             cloneOnDashUnlocked = true;
+        else
+            cloneOnDashUnlocked = false;
     }
 
     private void UnlockCloneOnArrival()
     {
         if(cloneOnArrivalUnlockButton.unlocked)
             cloneOnArrivalUnlocked = true;
+        else
+            cloneOnArrivalUnlocked = false;
     }
+
+    #endregion
 
     public void CloneOnDash()
     {

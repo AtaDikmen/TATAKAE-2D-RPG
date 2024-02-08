@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7813378973554c5439aaec62385c48db, type: 3}
   m_Name: Fire Buff
   m_EditorClassIdentifier: 
+  effectDescription: 'Increases your Fire Damage for 5 seconds.
+
+    +25 Fire Damage
+
+'
   buffType: 11
-  buffAmount: 15
+  buffAmount: 25
   buffDuration: 5

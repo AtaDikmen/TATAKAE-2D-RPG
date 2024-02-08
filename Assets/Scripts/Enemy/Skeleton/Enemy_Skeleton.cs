@@ -32,6 +32,11 @@ public class Enemy_Skeleton : Enemy
         stateMachine.Initialize(idleState);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     public override bool CanBeStunned()
     {
         if (base.CanBeStunned())

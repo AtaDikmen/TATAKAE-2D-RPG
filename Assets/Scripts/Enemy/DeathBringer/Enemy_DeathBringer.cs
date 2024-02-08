@@ -17,6 +17,7 @@ public class Enemy_DeathBringer : Enemy
     #endregion
 
     public bool bossFightBegun;
+    [SerializeField] private Player player;
 
     [Header("Spell Cast Details")]
     [SerializeField] private GameObject spellPrefab;
@@ -53,6 +54,18 @@ public class Enemy_DeathBringer : Enemy
         base.Start();
 
         stateMachine.Initialize(idleState);
+        isImmune = true;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (stateMachine.currentState != deadState)
+        {
+            if (player.stateMachine.currentState == player.deadState)
+                stateMachine.ChangeState(idleState);
+        }
     }
 
     public override void Die()

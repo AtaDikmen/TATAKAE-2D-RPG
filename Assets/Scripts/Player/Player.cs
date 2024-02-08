@@ -92,14 +92,22 @@ public class Player : Entity
         if (Time.timeScale == 0)
             return;
 
-        base .Update();
+        if (stats.isDead)
+            return;
+
+        base.Update();
 
         stateMachine.currentState.Update();
 
         CheckForDashInput();
 
-        if (Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)
-            skill.crystal.CanUseSkill();
+        if (Input.GetKeyDown(KeyCode.F) &&!isBusy)
+        {
+            if(skill.crystal.crystalUnlocked)
+                skill.crystal.CanUseSkill();
+            if(!skill.crystal.crystalUnlocked)
+                fx.CreatePopUpText("Skill is locked");
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Inventory.instance.UseFlask();
@@ -107,6 +115,8 @@ public class Player : Entity
 
     public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
+        base.SlowEntityBy(_slowPercentage, _slowDuration);
+
         moveSpeed = moveSpeed * (1 - _slowPercentage);
         jumpForce = jumpForce * (1 - _slowPercentage);
         dashSpeed = dashSpeed * (1 - _slowPercentage);
@@ -131,7 +141,8 @@ public class Player : Entity
 
     public void CatchTheSword()
     {
-        stateMachine.ChangeState(catchSword);
+        if(!isBusy)
+            stateMachine.ChangeState(catchSword);
         Destroy(sword);
     }
 
@@ -153,11 +164,14 @@ public class Player : Entity
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !skill.dash.dashUnlocked)
+            fx.CreatePopUpText("Skill is locked");
+
         if (skill.dash.dashUnlocked == false)
             return;
 
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill() && !isBusy)
         {
             dashDir = Input.GetAxisRaw("Horizontal");
 

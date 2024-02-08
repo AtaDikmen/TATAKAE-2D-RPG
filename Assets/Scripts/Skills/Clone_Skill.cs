@@ -32,6 +32,10 @@ public class Clone_Skill : Skill
     public bool crystalInsteadOfClone;
 
 
+    [Header("Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
+
     protected override void Start()
     {
         base.Start();
@@ -40,6 +44,8 @@ public class Clone_Skill : Skill
         aggresiveCloneUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockAggresiveClone);
         multipleUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockMultiClone);
         crystalInsteadUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockCrystalInstead);
+
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
     }
 
     #region Unlock Region
@@ -59,6 +65,8 @@ public class Clone_Skill : Skill
             canAttack = true;
             attackMultiplier = cloneAttackMultiplier;
         }
+        else
+            canAttack = false;
     }
 
     private void UnlockAggresiveClone()
@@ -68,6 +76,8 @@ public class Clone_Skill : Skill
             canApplyOnHitEffect = true;
             attackMultiplier = aggresiveCloneAttackMultiplier;
         }
+        else
+            canApplyOnHitEffect = false;
     }
 
     private void UnlockMultiClone()
@@ -77,6 +87,8 @@ public class Clone_Skill : Skill
             canDuplicateClone = true;
             attackMultiplier = multiCloneAttackMultiplier;
         }
+        else
+            canDuplicateClone = false;
     }
 
     private void UnlockCrystalInstead()
@@ -85,6 +97,8 @@ public class Clone_Skill : Skill
         {
             crystalInsteadOfClone = true;
         }
+        else
+            crystalInsteadOfClone = false;
     }
 
     #endregion

@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             if (!bgm[bgmIndex].isPlaying)
-                PlayBGM(bgmIndex);
+                PlayRandomBGM();
         }
     }
 
@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
 
         if (_sfxIndex < sfx.Length)
         {
-            sfx[_sfxIndex].pitch = Random.Range(.85f, 1.1f);
+            sfx[_sfxIndex].pitch = Random.Range(.90f, 1.05f);
             sfx[_sfxIndex].Play();
         }
     }
@@ -84,6 +84,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(int _bgmIndex)
     {
+        if (bgm[_bgmIndex].isPlaying)
+            return;
+
         bgmIndex = _bgmIndex;
 
         StopAllBGM();

@@ -17,7 +17,9 @@ public class PlayerDeadState : PlayerState
     {
         base.Enter();
 
-        GameObject.Find("Canvas").GetComponent<UI>().SwitchOnEndScreen();
+        rb.velocity = new Vector2(0, 0);
+
+        GameObject.Find("UI").GetComponent<UI>().SwitchOnEndScreen();
     }
 
     public override void Exit()

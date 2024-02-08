@@ -116,6 +116,9 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             else
             {
                 SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
+
+                int sfxIndex = Random.Range(0, 3);
+                AudioManager.instance.PlaySFX(sfxIndex, null);
             }
 
             amountOfAttacks--;
@@ -150,6 +153,12 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     {
         if (collision.GetComponent<Enemy>() != null)
         {
+            if (collision.GetComponent<Enemy_DeathBringer>() != null)
+            {
+                collision.GetComponent<Enemy_DeathBringer>().isImmune = false;
+                collision.GetComponent<Enemy_DeathBringer>().stats.MakeInvincible(false);
+            }
+
             collision.GetComponent<Enemy>().FreezeTime(true);
 
             CreateHotKey(collision);
@@ -160,6 +169,10 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     {
         if (collision.GetComponent<Enemy>() != null)
             collision.GetComponent<Enemy>().FreezeTime(false);
+
+        if(collision.GetComponent <Enemy_DeathBringer>() != null)
+            collision.GetComponent<Enemy_DeathBringer>().isImmune = true;
+
     }
 
     private void CreateHotKey(Collider2D collision)

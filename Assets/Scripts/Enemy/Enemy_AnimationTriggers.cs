@@ -20,6 +20,9 @@ public class Enemy_AnimationTriggers : MonoBehaviour
             if (hit.GetComponent<Player>() != null)
             {
                 PlayerStats target = hit.GetComponent<PlayerStats>();
+
+                if(enemy.stats.lightingDamage.GetValue() >= 1)
+                    enemy.stats.DoMagicalDamage(target);
                 enemy.stats.DoDamage(target);
             }
         }

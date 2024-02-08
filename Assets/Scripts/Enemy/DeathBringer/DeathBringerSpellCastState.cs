@@ -17,8 +17,12 @@ public class DeathBringerSpellCastState : EnemyState
     {
         base.Enter();
 
+        AudioManager.instance.PlaySFX(12, enemy.transform);
+
         amountOfSpells = enemy.amountOfSpells;
         spellTimer = .5f;
+
+        enemy.stats.MakeInvincible(true);
     }
 
     public override void Update()
@@ -40,6 +44,8 @@ public class DeathBringerSpellCastState : EnemyState
         base.Exit();
 
         enemy.lastTimeCast = Time.time;
+
+        enemy.stats.MakeInvincible(false);
     }
 
     private bool CanCast()
@@ -47,6 +53,8 @@ public class DeathBringerSpellCastState : EnemyState
         if (amountOfSpells > 0 && spellTimer < 0)
         {
             amountOfSpells--;
+            float randomCd = Random.Range(1.5f, 2.1f);
+            enemy.spellCooldown = randomCd;
             spellTimer = enemy.spellCooldown;
             return true;
         }

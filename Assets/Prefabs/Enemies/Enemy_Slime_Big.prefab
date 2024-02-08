@@ -120,7 +120,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.94, y: 41}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 200, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5087000376439761322
 MonoBehaviour:
@@ -278,8 +278,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07941362, y: -0.32278183}
-  m_Size: {x: 1.6253846, y: 0.9110126}
+  m_Offset: {x: 0.07941363, y: -0.2617255}
+  m_Size: {x: 1.6253847, y: 0.7889028}
   m_Direction: 1
 --- !u!114 &6171760148737411243
 MonoBehaviour:
@@ -306,7 +306,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 5
+    baseValue: 20
     modifiers: 
   critChance:
     baseValue: 0
@@ -315,10 +315,10 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 75
+    baseValue: 350
     modifiers: 
   armor:
-    baseValue: 0
+    baseValue: 5
     modifiers: 
   evasion:
     baseValue: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   level: 1
-  percentageModifier: 0.4
+  percentageModifier: 0.2
 --- !u!114 &4186488561988442048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,8 +387,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc21677ffeea78c43afe77defd8e7e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 0
-  possibleDrop: []
+  possibleItemDrop: 4
+  possibleDrop:
+  - {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
+  - {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
   dropPrefab: {fileID: 7341500517375598969, guid: c83b3ce7a32628f4f9cfa238bdb5c7b1, type: 3}
 --- !u!114 &5224795053252119852
 MonoBehaviour:
@@ -405,15 +407,19 @@ MonoBehaviour:
   knockbackPower: {x: 5, y: 9}
   knockbackOffset: {x: 0.5, y: 2}
   knockbackDuration: 0.07
+  isImmune: 0
   attackCheck: {fileID: 4122304701348116093}
-  attackCheckRadius: 0.8
+  attackCheckRadius: 1
   groundCheck: {fileID: 394480970245235349}
   groundCheckDistance: 0.6
   wallCheck: {fileID: 7062333174236167813}
-  wallCheckDistance: 1
+  wallCheckDistance: 2.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 1024
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
@@ -421,10 +427,10 @@ MonoBehaviour:
   stunDirection: {x: 10, y: 12}
   counterImage: {fileID: 528806283521054768}
   moveSpeed: 1.5
-  idleTime: 1
+  idleTime: 2
   battleTime: 5
-  agroDistance: 3.5
-  attackDistance: 1.5
+  agroDistance: 4
+  attackDistance: 2
   attackCooldown: 0
   minAttackCooldown: 0.8
   maxAttackCooldown: 1
@@ -720,7 +726,7 @@ Transform:
   m_GameObject: {fileID: 6851521188319093610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.86, y: -0.111, z: 0}
+  m_LocalPosition: {x: -0.788, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -866,7 +872,7 @@ Transform:
   m_GameObject: {fileID: 8575403655378200294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.047, y: -0.234, z: 0}
+  m_LocalPosition: {x: -0.047, y: 0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

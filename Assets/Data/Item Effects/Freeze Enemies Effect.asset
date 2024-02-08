@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0456e5d90a5c6648aeae28566cbfdfb, type: 3}
   m_Name: Freeze Enemies Effect
   m_EditorClassIdentifier: 
+  effectDescription: 'When your health is %10 all enemies of your around will be
+    freeze for 2 seconds.
+
+    Cooldown 5 sec.'
   duration: 2

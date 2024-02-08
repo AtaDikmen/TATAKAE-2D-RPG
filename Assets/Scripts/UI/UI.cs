@@ -8,19 +8,23 @@ public class UI : MonoBehaviour, ISaveManager
     [SerializeField] private UI_FadeScreen fadeScreen;
     [SerializeField] private GameObject endText;
     [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject mainMenuButton;
     [Space]
 
+    [Header("Canvas List")]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject inGameUI;
 
+    [Header("Tool Tips")]
     public UI_SkillTooltip skillTooltip;
     public UI_ItemTooltip itemToolTip;
     public UI_StatTooltip statToolTip;
-    public UI_CraftWindow craftWindow;
 
+    [Space]
+    public UI_CraftWindow craftWindow;
     [SerializeField] private UI_VolumeSlider[] volumeSettings;
 
     private void Awake()
@@ -69,7 +73,8 @@ public class UI : MonoBehaviour, ISaveManager
 
         if (_menu != null)
         {
-            AudioManager.instance.PlaySFX(7, null);
+            if(AudioManager.instance != null)
+                AudioManager.instance.PlaySFX(7, null);
             _menu.SetActive(true);
         }
 
@@ -87,14 +92,14 @@ public class UI : MonoBehaviour, ISaveManager
         if (_menu != null && _menu.activeSelf)
         {
             _menu.SetActive(false);
-            CheckFotInGameUI();
+            CheckForInGameUI();
             return;
         }
 
         SwitchTo(_menu);
     }
 
-    private void CheckFotInGameUI()
+    private void CheckForInGameUI()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -104,6 +109,7 @@ public class UI : MonoBehaviour, ISaveManager
 
         SwitchTo(inGameUI);
     }
+
 
     public void SwitchOnEndScreen()
     {
@@ -117,9 +123,11 @@ public class UI : MonoBehaviour, ISaveManager
         endText.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         restartButton.SetActive(true);
+        mainMenuButton.SetActive(true);
     }
 
     public void RestartGameButton() => GameManager.instance.RestartScene();
+    public void MainMenuButton() => GameManager.instance.MainMenu();
 
     public void LoadData(GameData _data)
     {

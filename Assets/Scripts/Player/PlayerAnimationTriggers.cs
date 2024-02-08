@@ -24,7 +24,14 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
 
                 if (_target != null)
+                {
                     player.stats.DoDamage(_target);
+
+                    player.fx.ScreenShake(new Vector3(0,.5f,0));
+
+                    if (player.stats.fireDamage.GetValue() >= 1 || player.stats.iceDamage.GetValue() >= 1 || player.stats.lightingDamage.GetValue() >= 1)
+                        player.stats.DoMagicalDamage(_target);
+                }
 
                 //Inventory.instance.GetEquipment(EquipmentType.Weapon).Effect(_target.transform);
 

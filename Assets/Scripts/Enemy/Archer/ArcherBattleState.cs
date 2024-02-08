@@ -35,12 +35,11 @@ public class ArcherBattleState : EnemyState
                 if (CanJump())
                     stateMachine.ChangeState(enemy.jumpState);
             }
-
+            
             if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
                 if (CanAttack())
                     stateMachine.ChangeState(enemy.attackState);
-
             }
         }
         else

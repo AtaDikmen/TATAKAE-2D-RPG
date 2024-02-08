@@ -29,6 +29,7 @@ public class ArcherAttackState : EnemyState
 
         enemy.SetZeroVelocity();
 
+
         if (triggerCalled)
         {
             stateMachine.ChangeState(enemy.battleState);

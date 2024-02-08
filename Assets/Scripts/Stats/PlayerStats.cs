@@ -36,7 +36,8 @@ public class PlayerStats : CharacterStats
         if (isDead)
             return;
 
-        if (_damage > GetMaxHealthValute() * .3f) // When player take high damage ( %30 of health)
+
+        if (_damage > GetMaxHealthValute() * .10f) // When player take high damage ( %30 of health)
         {
             player.SetupKnockbackPower(new Vector2(10,6));
             player.fx.ScreenShake(player.fx.shakeHighDamage);

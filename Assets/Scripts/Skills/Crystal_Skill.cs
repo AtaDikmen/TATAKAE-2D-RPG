@@ -35,6 +35,9 @@ public class Crystal_Skill : Skill
     [SerializeField] private float useTimeWindow;
     [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
 
+    [Header("Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
     protected override void Start()
     {
         base.Start();
@@ -44,9 +47,10 @@ public class Crystal_Skill : Skill
         unlockedExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
         unlockMovingCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockMovingCrystal);
         unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMultiStack);
+
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
     }
 
-    // here we unlock crystal skills
     #region Unlock Skill Region
 
     protected override void CheckUnlock()
@@ -62,12 +66,20 @@ public class Crystal_Skill : Skill
     {
         if(unlockCrystalButton.unlocked)
             crystalUnlocked = true;
+        else
+        {
+            crystalUnlocked = false;
+            cooldown = 0; // We need this line for fix to bug about cooldown when we use reset button
+        }
+        
     }
 
     private void UnlockCrystalMirage()
     {
         if(unlockCloneInsteadButton.unlocked)
             cloneInsteadOfCrystal = true;
+        else
+            cloneInsteadOfCrystal = false;
     }
 
     private void UnlockExplosiveCrystal()
@@ -77,12 +89,16 @@ public class Crystal_Skill : Skill
             canExplode = true;
             cooldown = explosiveCooldown;
         }
+        else
+            canExplode = false;
     }
 
     private void UnlockMovingCrystal()
     {
         if(unlockMovingCrystalButton.unlocked)
             canMoveToEnemy = true;
+        else
+            canMoveToEnemy = false;
             
     }
 
@@ -90,6 +106,8 @@ public class Crystal_Skill : Skill
     {
         if(unlockMultiStackButton.unlocked)
             canUseMultiStacks = true;
+        else
+            canUseMultiStacks = false;
     }
 
     #endregion
@@ -98,8 +116,10 @@ public class Crystal_Skill : Skill
     {
         base.UseSkill();
 
+
         if (CanUseMultiCrystal())
             return;
+
 
         if (currentCrystal == null)
         {

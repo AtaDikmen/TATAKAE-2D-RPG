@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISaveManager
 {
     private UI ui;
-    private Image skillImage;
+    public Image skillImage;
 
-    [SerializeField] private int skillCost;
+    public int skillCost;
     [SerializeField] private string skillName;
     [TextArea]
     [SerializeField] private string skillDescription;
-    [SerializeField] private Color lockedSkillColor;
+    public Color lockedSkillColor;
 
     public bool unlocked;
 
@@ -44,7 +44,7 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void UnlockSkillSlot()
     {
-        if (PlayerManager.instance.HaveEnoughMoney(skillCost) == false)
+        if (unlocked)
             return;
 
         for (int i = 0; i < shouldBeUnlocked.Length; i++)
@@ -52,6 +52,7 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
             if (shouldBeUnlocked[i].unlocked == false)
             {
                 Debug.Log("Can not unlock skill!");
+                AudioManager.instance.PlaySFX(42, null);
                 return;
             }
         }
@@ -61,10 +62,15 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
             if (shouldBeLocked[i].unlocked == true)
             {
                 Debug.Log("Can not unlock skill!");
+                AudioManager.instance.PlaySFX(42, null);
                 return;
             }
         }
 
+        if (PlayerManager.instance.HaveEnoughMoney(skillCost) == false)
+            return;
+
+        AudioManager.instance.PlaySFX(26, null);
         unlocked = true;
         skillImage.color = Color.white;
     }

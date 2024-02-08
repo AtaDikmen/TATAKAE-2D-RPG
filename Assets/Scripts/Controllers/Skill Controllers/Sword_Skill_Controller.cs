@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sword_Skill_Controller : MonoBehaviour
 {
+    private SwordType swordType;
+
     private Animator anim;
     private Rigidbody2D rb;
     private CircleCollider2D cd;
@@ -42,6 +44,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CircleCollider2D>();
+
+        swordType = SkillManager.instance.sword.swordType;
     }
 
     private void DestroyMe()
@@ -64,6 +68,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
 
         Invoke("DestroyMe", 7);
+
+        AudioManager.instance.PlaySFX(27, transform);
     }
 
     public void SetUpBounce(bool _isBouncing, int _amountOfBounce, float _bounceSpeed)
@@ -169,6 +175,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
                 SwordSkillDamage(enemyTarget[targetIndex].GetComponent<Enemy>());
+                AudioManager.instance.PlaySFX(1, null);
 
                 targetIndex++;
                 bounceAmount--;
@@ -207,7 +214,10 @@ public class Sword_Skill_Controller : MonoBehaviour
     {
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
 
-        player.stats.DoDamage(enemyStats);
+        if (swordType == SwordType.Bounce)
+            player.stats.SwordThrowDamage(enemyStats);
+        else
+            player.stats.DoDamage(enemyStats);
 
         if(player.skill.sword.timeStopUnlocked)
             enemy.FreezeTimeFor(freezeTimeDuration);
@@ -252,6 +262,9 @@ public class Sword_Skill_Controller : MonoBehaviour
             return;
         }
 
+        if (collision.transform.tag == "InvisibleWall")
+            return;
+
         canRotate = false;
         cd.enabled = false;
 
@@ -264,5 +277,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         anim.SetBool("Rotation", false);
         transform.parent = collision.transform;
+
+        AudioManager.instance.PlaySFX(28, collision.transform);
     }
 }

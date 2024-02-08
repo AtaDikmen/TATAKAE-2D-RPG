@@ -111,7 +111,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.94, y: 41}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 200, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &397184213966007320
 MonoBehaviour:
@@ -331,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 4801449512604734854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -851,7 +851,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 20
+    baseValue: 60
     modifiers: 
   critChance:
     baseValue: 0
@@ -860,7 +860,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 150
+    baseValue: 500
     modifiers: 
   armor:
     baseValue: 0
@@ -884,13 +884,13 @@ MonoBehaviour:
   isChilled: 0
   isShocked: 0
   ailmentsDuration: 4
-  shockStrikePrefab: {fileID: 0}
+  shockStrikePrefab: {fileID: 6115359567115172251, guid: 734750d6c8990c84d8a48ee1d8dc5c08, type: 3}
   currentHealth: 0
   soulsDropAmount:
     baseValue: 0
     modifiers: 
   level: 1
-  percentageModifier: 0.4
+  percentageModifier: 0.2
 --- !u!114 &420611215743049631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,8 +932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc21677ffeea78c43afe77defd8e7e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 0
-  possibleDrop: []
+  possibleItemDrop: 1
+  possibleDrop:
+  - {fileID: 11400000, guid: 7e44b7919e6a8844a87cf674a46e1a70, type: 2}
   dropPrefab: {fileID: 7341500517375598969, guid: c83b3ce7a32628f4f9cfa238bdb5c7b1, type: 3}
 --- !u!114 &3052007198560280211
 MonoBehaviour:
@@ -950,6 +951,7 @@ MonoBehaviour:
   knockbackPower: {x: 7, y: 12}
   knockbackOffset: {x: 0.5, y: 2}
   knockbackDuration: 0.07
+  isImmune: 0
   attackCheck: {fileID: 6894113875024421118}
   attackCheckRadius: 1.2
   groundCheck: {fileID: 2472806251619812171}
@@ -959,16 +961,19 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 1024
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 1
   stunDirection: {x: 10, y: 12}
   counterImage: {fileID: 7464946144371966631}
-  moveSpeed: 1.5
+  moveSpeed: 3
   idleTime: 2
   battleTime: 7
-  agroDistance: 2
+  agroDistance: 7
   attackDistance: 15
   attackCooldown: 0
   minAttackCooldown: 1
@@ -977,7 +982,7 @@ MonoBehaviour:
   arrowPrefab: {fileID: 1348022699138219229, guid: dd2a645459ab68645baece182063880a, type: 3}
   arrowSpeed: 7
   jumpVelocity: {x: 20, y: 15}
-  jumpCooldown: 1
+  jumpCooldown: 2
   safeDistance: 3
   lastTimeJumped: 0
   groundBehindCheck: {fileID: 5670434554752253497}

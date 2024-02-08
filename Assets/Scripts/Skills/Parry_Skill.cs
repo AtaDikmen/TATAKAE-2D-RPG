@@ -19,6 +19,9 @@ public class Parry_Skill : Skill
     [SerializeField] private UI_SkillTreeSlot parryWithMirageUnlockButton;
     public bool parryWithMirageUnlocked { get; private set; }
 
+    [Header("Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
 
     public override void UseSkill()
     {
@@ -35,10 +38,16 @@ public class Parry_Skill : Skill
     {
         base.Start();
 
+        cooldown = .5f;
+
         parryUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockParry);
         restoreUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockParryRestore);
         parryWithMirageUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockParryWithMirage);
+
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
     }
+
+    #region Unlock Region
 
     protected override void CheckUnlock()
     {
@@ -51,18 +60,26 @@ public class Parry_Skill : Skill
     {
         if(parryUnlockButton.unlocked)
             parryUnlocked = true;
+        else
+            parryUnlocked = false;
     }
 
     private void UnlockParryRestore()
     {
         if(restoreUnlockButton.unlocked)
             restoreUnlocked = true;
+        else
+            restoreUnlocked = false;
     }
     private void UnlockParryWithMirage()
     {
         if(parryWithMirageUnlockButton.unlocked)
             parryWithMirageUnlocked = true;
+        else
+            parryWithMirageUnlocked = false;
     }
+
+    #endregion
 
     public void MakeMirageOnParry(Transform _respawnTransform)
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI_FadeScreen : MonoBehaviour
 {
-    private Animator anim;
+    public Animator anim;
 
     void Start()
     {
@@ -14,4 +14,5 @@ public class UI_FadeScreen : MonoBehaviour
 
     public void FadeOut() => anim.SetTrigger("fadeOut");
     public void FadeIn() => anim.SetTrigger("fadeIn");
+
 }

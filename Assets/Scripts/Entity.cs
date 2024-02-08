@@ -13,9 +13,10 @@ public class Entity : MonoBehaviour
 
     [Header("Knockback Info")]
     [SerializeField] protected Vector2 knockbackPower = new Vector2(7,12);
-    [SerializeField] protected Vector2 knockbackOffset = new Vector2(.5f, 2);
+    [SerializeField] protected Vector2 knockbackOffset = new Vector2(.5f, 3);
     [SerializeField] protected float knockbackDuration = .07f;
     protected bool isKnocked;
+    public bool isImmune = false;
 
 
     [Header("Collision Info")]
@@ -26,6 +27,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected float wallCheckDistance = .8f;
     [SerializeField] protected LayerMask whatIsGround;
+    [SerializeField] protected LayerMask whatIsWall;
 
     public int knockbackDir { get; private set; }
     public int facingDir { get; private set; } = 1;
@@ -54,7 +56,8 @@ public class Entity : MonoBehaviour
 
     public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
-
+        if (isImmune)
+            return;
     }
 
     protected virtual void ReturnDefaultSpeed()
@@ -62,7 +65,15 @@ public class Entity : MonoBehaviour
         anim.speed = 1;
     }
 
-    public virtual void DamageImpact() => StartCoroutine("HitKnockback");
+    public virtual void DamageImpact()
+    {
+        if (isImmune)
+            return;
+
+        StartCoroutine("HitKnockback");
+    }
+
+
 
     public virtual void SetupKnockbackDir(Transform _damageDirection)
     {
@@ -122,6 +133,9 @@ public class Entity : MonoBehaviour
     #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
+    public virtual bool IsInvisibleWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsWall);
+
+
 
     protected virtual void OnDrawGizmos()
     {

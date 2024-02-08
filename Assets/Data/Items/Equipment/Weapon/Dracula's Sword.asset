@@ -15,7 +15,8 @@ MonoBehaviour:
   itemType: 1
   itemName: Dracula's Sword
   icon: {fileID: -1944902997, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 10
+  itemId: 212a89632829dc24faee478ebe2c9d81
+  dropChance: 100
   equipmentType: 0
   itemCooldown: 0
   itemEffects:
@@ -24,20 +25,18 @@ MonoBehaviour:
   agility: 0
   intelligence: 0
   vitality: 0
-  damage: 15
-  critChance: 15
+  damage: 5
+  critChance: 5
   critPower: 0
   health: 0
   armor: 0
   evasion: 0
-  magicResistance: 25
+  magicResistance: 0
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0
   craftingMaterials:
   - data: {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
-    stackSize: 1
-  - data: {fileID: 11400000, guid: cfa976fe6a354454dbd9564659313b88, type: 2}
-    stackSize: 2
+    stackSize: 5
   - data: {fileID: 11400000, guid: 5723e523810cc9449ac6857ac4bad2cb, type: 2}
-    stackSize: 3
+    stackSize: 5

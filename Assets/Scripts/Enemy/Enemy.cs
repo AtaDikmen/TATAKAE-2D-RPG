@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody2D))]
-[RequireComponent (typeof(CapsuleCollider2D))]
-[RequireComponent (typeof(EnemyStats))]
-[RequireComponent (typeof(EntityFX))]
-[RequireComponent (typeof(ItemDrop))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(EnemyStats))]
+[RequireComponent(typeof(EntityFX))]
+[RequireComponent(typeof(ItemDrop))]
 public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
@@ -56,12 +55,16 @@ public class Enemy : Entity
         base.Update();
 
         stateMachine.currentState.Update();
+
     }
 
     public virtual void AssignLastAnimName(string _animBoolName) => lastAnimBoolName = _animBoolName;
 
+
     public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
+        base.SlowEntityBy(_slowPercentage, _slowDuration);
+
         moveSpeed = moveSpeed * (1 - _slowPercentage);
         anim.speed = anim.speed * (1 - _slowPercentage);
 
@@ -89,7 +92,14 @@ public class Enemy : Entity
         }
     }
 
-    public virtual void FreezeTimeFor(float _duration) => StartCoroutine(FreezeTimeCoroutine(_duration));
+    public virtual void FreezeTimeFor(float _duration)
+    {
+        if (isImmune)
+            return;
+
+        StartCoroutine(FreezeTimeCoroutine(_duration));
+    }
+
 
     protected virtual IEnumerator FreezeTimeCoroutine(float _seconds)
     {
@@ -132,15 +142,20 @@ public class Enemy : Entity
 
     public virtual RaycastHit2D IsPlayerDetected()
     {
-        float playerDistanceCheck = 50;
+        float playerDistanceCheck = 30;
 
         RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsPlayer);
-        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck + 1, whatIsGround);
 
-        if(wallDetected)
+        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsGround);
+
+        if (playerDetected.distance < wallDetected.distance)
+            return playerDetected;
+        if (!wallDetected)
+            return playerDetected;
+        if (playerDetected.distance > wallDetected.distance)
             return default(RaycastHit2D);
-
-        return playerDetected;
+        else
+            return default(RaycastHit2D);
     }
 
     protected override void OnDrawGizmos()

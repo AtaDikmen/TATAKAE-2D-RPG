@@ -25,6 +25,8 @@ public class Enemy_Shady : Enemy
     {
         base.Awake();
 
+        isImmune = true;
+
         idleState = new ShadyIdleState(this, stateMachine, "Idle", this);
         moveState = new ShadyMoveState(this, stateMachine, "Move", this);
 
@@ -39,6 +41,11 @@ public class Enemy_Shady : Enemy
         base.Start();
 
         stateMachine.Initialize(idleState);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
     public override bool CanBeStunned()
@@ -64,6 +71,8 @@ public class Enemy_Shady : Enemy
         GameObject newExplosive = Instantiate(explosivePrefab, attackCheck.position, Quaternion.identity);
 
         newExplosive.GetComponent<Explosive_Controller>().SetupExplosive(stats, growSpeed, maxSize, attackCheckRadius);
+
+        AudioManager.instance.PlaySFX(13, newExplosive.transform);
 
         cd.enabled = false;
         rb.gravityScale = 0;

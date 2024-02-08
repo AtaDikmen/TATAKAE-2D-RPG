@@ -15,23 +15,23 @@ MonoBehaviour:
   itemType: 1
   itemName: Healing Flask
   icon: {fileID: -410334530, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 0
+  itemId: a2bc06480e27dba4f80c3404605bcea4
+  dropChance: 100
   equipmentType: 3
-  itemCooldown: 15
+  itemCooldown: 10
   itemEffects:
   - {fileID: 11400000, guid: d449e514cc05a9c41b430bd145f6ad2b, type: 2}
-  itemEffectDescription: Heals for 30% of health. Cooldown 15 sec.
   strength: 0
   agility: 0
   intelligence: 0
-  vitality: 0
+  vitality: 2
   damage: 0
   critChance: 0
   critPower: 0
-  health: 0
-  armor: 0
-  evasion: 0
-  magicResistance: 0
+  health: 50
+  armor: 2
+  evasion: 1
+  magicResistance: 1
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0

@@ -24,22 +24,37 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (player.skill.blackhole.cooldownTimer > 0)
+            if (player.skill.blackhole.blackholeUnlocked)
             {
-                player.fx.CreatePopUpText("Cooldown!");
-                return;
-            }
+                if (player.skill.blackhole.cooldownTimer > 0)
+                {
+                    player.fx.CreatePopUpText("Cooldown!");
+                    return;
+                }
 
-            stateMachine.ChangeState(player.blackHole);
+                stateMachine.ChangeState(player.blackHole);
+            }
+            if (!player.skill.blackhole.blackholeUnlocked)
+                player.fx.CreatePopUpText("Skill is locked");
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword() && player.skill.sword.swordUnlocked)
-            stateMachine.ChangeState(player.aimSword);
-
-        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)
-            stateMachine.ChangeState(player.counterAttack);
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if(HasNoSword() && player.skill.sword.swordUnlocked && !player.isBusy)
+                stateMachine.ChangeState(player.aimSword);
+            if(!player.skill.sword.swordUnlocked)
+                player.fx.CreatePopUpText("Skill is locked");
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if(player.skill.parry.parryUnlocked)
+                stateMachine.ChangeState(player.counterAttack);
+            if(!player.skill.parry.parryUnlocked)
+                player.fx.CreatePopUpText("Skill is locked");
+        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttack);

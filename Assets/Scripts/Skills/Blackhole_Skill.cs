@@ -16,13 +16,12 @@ public class Blackhole_Skill : Skill
     [SerializeField] private float growSpeed;
     [SerializeField] private float shrinkSpeed;
 
+    
     Blackhole_Skill_Controller currentBlackhole;
 
-    private void UnlockBlackHole()
-    {
-        if(blackHoleUnlockButton.unlocked)
-            blackholeUnlocked = true;
-    }
+    [Header("Skill Reset Button")]
+    [SerializeField] private UI_SkillReset skillResetButton;
+
 
     public override bool CanUseSkill()
     {
@@ -32,6 +31,8 @@ public class Blackhole_Skill : Skill
     public override void UseSkill()
     {
         base.UseSkill();
+
+        player.StartCoroutine("BusyFor", 3.5f);
 
         GameObject newBlackHole = Instantiate(blackholePrefab, player.transform.position, Quaternion.identity);
 
@@ -48,6 +49,7 @@ public class Blackhole_Skill : Skill
         base.Start();
 
         blackHoleUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBlackHole);
+        skillResetButton.GetComponent<Button>().onClick.AddListener(CheckUnlock);
     }
 
     protected override void Update()
@@ -77,5 +79,13 @@ public class Blackhole_Skill : Skill
     protected override void CheckUnlock()
     {
         UnlockBlackHole();
+    }
+
+    private void UnlockBlackHole()
+    {
+        if(blackHoleUnlockButton.unlocked)
+            blackholeUnlocked = true;
+        else
+            blackholeUnlocked = false;
     }
 }

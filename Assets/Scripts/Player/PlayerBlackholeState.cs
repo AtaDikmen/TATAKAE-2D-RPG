@@ -23,6 +23,8 @@ public class PlayerBlackholeState : PlayerState
     {
         base.Enter();
 
+        player.stats.MakeInvincible(true);
+
         defaultGravity = player.rb.gravityScale;
 
         skillUsed = false;
@@ -36,6 +38,8 @@ public class PlayerBlackholeState : PlayerState
 
         player.rb.gravityScale = defaultGravity;
         player.fx.MakeTransparent(false);
+
+        player.stats.MakeInvincible(false);
     }
 
     public override void Update()

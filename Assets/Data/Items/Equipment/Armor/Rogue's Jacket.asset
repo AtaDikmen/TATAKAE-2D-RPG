@@ -15,23 +15,23 @@ MonoBehaviour:
   itemType: 1
   itemName: Rogue's Jacket
   icon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 0
+  itemId: 4fa1dce355bf0fc40b2a2c9a851e7d74
+  dropChance: 100
   equipmentType: 1
   itemCooldown: 0
   itemEffects:
   - {fileID: 11400000, guid: fa5732b37d69690468a084d8ea16dc42, type: 2}
-  itemEffectDescription: 'Unique: Increase evasion on each taken hit.'
   strength: 0
   agility: 5
   intelligence: 0
-  vitality: 0
+  vitality: 5
   damage: 0
   critChance: 0
   critPower: 0
-  health: 0
+  health: 2
   armor: 0
   evasion: 5
-  magicResistance: 0
+  magicResistance: 2
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0
