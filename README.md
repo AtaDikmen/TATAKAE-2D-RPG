@@ -10,6 +10,28 @@ Tatakae is a 2D RPG game that I developed with my personal efforts, research, an
 
 I've meticulously worked to provide players with a rich gaming experience and engaging combat mechanics to ensure they won't get bored. I hope you enjoy playing my game! Happy gaming to everyone!
 
+### Controls are pretty simple:
+
+- Move and Jump [WASD, Space]
+- Basic Attack [LMB]
+- Sword Throw Skill [RMB]
+- Dash Skill [L.Shift]
+- Crystal Skill [F]
+- Parry [Q]
+- Potion/Flask [Alpha1]
+- Ultimate Skill [R]
+
+### Enemy Traits
+- Slime: When Slimes die, they split into smaller pieces and continue to attack you.
+- Archers: Archers shoot arrows that deal significant damage from afar. If you try to get closer to them, they will retreat backward to maintain their distance.
+- Shady: This little guy like a bomber or creeper. Don't get close to him.
+- Night Born: Night Borns Night Borns move very quickly and have high attack speeds. Their attacks apply a "Lightning Effect." It's very difficult to escape from them.
+
+### Boss Death Bringer
+- His attack power is very high, so be careful to avoid their attacks.
+- He is immune to effects like stagger and stun.
+- After hitting you, he teleport to a random location on the map.
+- Sometimes he enter a "Spell Cast" state during which they become invulnerable. During this time, arms appear above you trying to hit you. Try to dodge them.
 
 # Features
 - Battle System
