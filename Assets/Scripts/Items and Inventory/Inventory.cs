@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -257,40 +258,37 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
     {
-        List <InventoryItem> materialsToRemove = new List <InventoryItem>();
+        // Check if all required materials are avaliable with the required quantity
 
-        for (int i = 0; i < _requiredMaterials.Count; i++)
+        foreach (var requiredItem in _requiredMaterials)
         {
-            if (stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            if (stashDictionary.TryGetValue(requiredItem.data, out InventoryItem stashItem))
             {
-                if (stashValue.stackSize < _requiredMaterials[i].stackSize)
+                if (stashItem.stackSize < requiredItem.stackSize)
                 {
-                    Debug.Log("Not Enough Materials");
-                    AudioManager.instance.PlaySFX(42, null);
+                    Debug.Log("Not enough materials" + requiredItem.data.name);
                     return false;
-                }
-                else
-                {
-                    materialsToRemove.Add(stashValue);
                 }
             }
             else
             {
-                Debug.Log("Not enough materials");
-                AudioManager.instance.PlaySFX(42, null);
+                Debug.Log("Materials not found in stash" + requiredItem.data.name);
                 return false;
             }
         }
 
-        for (int i = 0; i < materialsToRemove.Count; i++)
+        // If all materials are avaliable, remove them from stash
+
+        foreach (var requiredMaterial in _requiredMaterials)
         {
-            RemoveItem(materialsToRemove[i].data);
+            for (int i = 0; i < requiredMaterial.stackSize; i++)
+            {
+                RemoveItem(requiredMaterial.data);
+            }
         }
 
         AddItem(_itemToCraft);
-        Debug.Log("Here is your item " + _itemToCraft.name);
-        AudioManager.instance.PlaySFX(26,null);
-
+        Debug.Log("Craft is succesful: " + _itemToCraft.name);
         return true;
     }
 

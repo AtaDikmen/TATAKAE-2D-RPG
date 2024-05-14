@@ -142,20 +142,19 @@ public class Enemy : Entity
 
     public virtual RaycastHit2D IsPlayerDetected()
     {
-        float playerDistanceCheck = 30;
+        float raycastLength = 30;
 
-        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsPlayer);
+        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, raycastLength, whatIsPlayer);
 
-        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsGround);
+        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, raycastLength, whatIsGround);
 
-        if (playerDetected.distance < wallDetected.distance)
-            return playerDetected;
-        if (!wallDetected)
-            return playerDetected;
-        if (playerDetected.distance > wallDetected.distance)
-            return default(RaycastHit2D);
-        else
-            return default(RaycastHit2D);
+        if (wallDetected)
+        {
+            if (wallDetected.distance < playerDetected.distance)
+                return default(RaycastHit2D);
+        }
+
+        return playerDetected;
     }
 
     protected override void OnDrawGizmos()
